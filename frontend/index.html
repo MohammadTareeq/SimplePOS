@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barcode & QR Code Scanner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #scanner-container, #add-product-scanner {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+      border: 2px solid #333;
+      margin-bottom: 10px;
+      display: none;
+      position: relative;
+    }
+    #scanner-container video, #add-product-scanner video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .cart-item {
+      margin: 5px 0;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      font-size: 16px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 6px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Barcode & QR Code Scanner</h1>
+
+  <label for="barcodeInput">Scan or Enter Barcode Manually:</label>
+  <input type="text" id="barcodeInput" placeholder="Scan barcode or enter manually" />
+
+  <div>
+    <button id="startMainScannerBtn">Start Main Scanner</button>
+    <button id="stopMainScannerBtn" disabled>Stop Main Scanner</button>
+  </div>
+  <div id="scanner-container"></div>
+
+  <h2>Product Info</h2>
+  <div id="productDisplay">No product scanned yet.</div>
+
+  <h2>Cart</h2>
+  <div id="cartItems"></div>
+  <div id="cartTotal">Total: ₹0.00</div>
+  <button id="printBtn">Print Receipt</button>
+
+  <hr />
+
+  <h2>Add New Product</h2>
+  <div>
+    <button id="startAddScannerBtn">Scan Barcode for New Product</button>
+    <button id="stopAddScannerBtn" disabled>Stop Add Scanner</button>
+  </div>
+  <div id="add-product-scanner"></div>
+
+  <form id="addProductForm">
+    <label for="newName">Product Name:</label>
+    <input type="text" id="newName" required />
+
+    <label for="newBarcode">Barcode:</label>
+    <input type="text" id="newBarcode" readonly required />
+
+    <label for="newPrice">Price (₹):</label>
+    <input type="number" id="newPrice" step="0.01" min="0" required />
+
+    <button type="submit">Add Product</button>
+  </form>
+
+  <!-- ZXing Browser library from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.18.6/umd/index.min.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
